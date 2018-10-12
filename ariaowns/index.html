@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aria-owns and accordions with buttons inside of them</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+        <div><a href="#">placeholder at top</a></div>
+        <h1>Accordions with and without aria-owns</h1>
+        <h2>Instructions:</h2>
+        <ol>
+          <li>Open NVDA</li>
+          <li>Tab to each accordion button and activate it to expand the accordion</li>
+          <li>Tab to the first control in the expanded accordion (activating it will fire an alert)</li>
+          <li>Tab back to the parent expand/collapse button and listen to what NVDA reads.</li>
+          <li>Activate the parent expand/collapse button and observe that on the one with aria-owns, the button in the expandable section gets clicked.</li>
+        </ol>
+        <h2>Behavior</h2>
+        <h3>Expected</h3>
+        <p>Tabbing into the expanded accordion, then back to the expand/collapse button, and reactivating the button, should collapse the accordion. The button inside the accordion should not get clicked.</p>
+        <p>Shift-tabbing back to the expand/collapse button should cause NVDA to read the button's label.</p>
+        <h3>Actual</h3>
+        <p>Tabbing into the expanded accordion, then back to the expand/collapse button, and reactivating the button, causes the button <em>inside the accordion</em> to get clicked.</p>
+        <p>Shift-tabbing back to the expand/collapse button causes NVDA to not read the button's label.</p>
+        <div class="container">
+          <div>
+            <button id="btn1" aria-expanded="false" data-tgt="exp1">Accordion without aria-owns</button>
+            <div id="exp1" class="expandable hide">
+              <p>Here is an <button>actionable element 1</button></p>
+              <p>Here is a link to <a href="www.google.com">Google</a></p>
+            </div>
+          </div>
+          <div>
+            <button id="btn2" aria-expanded="false" data-tgt="exp2" aria-owns="exp2">Accordion with aria-owns</button>
+            <div id="exp2" class="expandable hide">
+              <p>Here is an <button>actionable element 2</button></p>
+              <p>Here is a link to <a href="www.google.com">Google</a></p>
+            </div>
+          </div>
+          <div>
+            <button id="btn3" aria-expanded="false" data-tgt="exp3" aria-controls="exp3">Accordion with aria-controls</button>
+            <div id="exp3" class="expandable hide">
+              <p>Here is an <button>actionable element 3</button></p>
+              <p>Here is a link to <a href="www.google.com">Google</a></p>
+            </div>
+          </div>
+          <div>
+            <button id="btn4" aria-expanded="false" data-tgt="exp4">Accordion using role region and aria-labelledby on expandable content</button>
+            <div id="exp4" class="expandable hide" role="region" aria-labelledby="btn4">
+              <p>Here is an <button>actionable element 4</button></p>
+              <p>Here is a link to <a href="www.google.com">Google</a></p>
+            </div>
+          </div>
+        
+        </div>
+        <div><a href="#">placeholder at bottom</a></div>
+        <script src="main.js"></script>
+    
+</body>
+</html>
